@@ -1,9 +1,9 @@
-# Create spatial points dataframe from queried table
+# Create spatial polygons dataframe of ice islands from queried table
 
 
 f.Spatialdf <- function(df) {
   row.names(df) -> df$gid
-  # Transforming polygons in to SpatialPolygonsDataFrame
+  # Transforming polygons into SpatialPolygonsDataFrame
   df_sp <- lapply(seq(nrow(df)), FUN=function(x) readWKT(df$geom1[x], df$gid[x]))
   df_sp <- do.call(rbind, df_sp)
   df_sp <- SpatialPolygonsDataFrame(df_sp, df)
