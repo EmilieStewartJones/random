@@ -3,10 +3,10 @@
 ## f.subset 
 This function queries a subset of the database and creates a dataframe. The calving year as well as the weeks since calving may be specified. Would like to add some more functionality. Should also try to get f.drift to use this function. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
 
- Input: - calvingyr: the year of calving event. If none are specified, all will be used
-        - wk_num: - requires a vector of 2, where the 1st element is the earliest week and the 2nd is the latest week
-        - If nothing is given, all weeks will be taken 
- Output: - A dataframe with all columns and a subset of rows  
+ Input: - calvingyr: the year of calving event. If none are specified, all will be used  
+        - wk_num: - requires a vector of 2, where the 1st element is the earliest week and the 2nd is the latest week  
+        - If nothing is given, all weeks will be taken   
+ Output: - A dataframe with all columns and a subset of rows    
  
 [] TO DO: Add location subseting
 
