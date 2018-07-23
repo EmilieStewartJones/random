@@ -10,7 +10,7 @@ This function queries a subset of the database and creates a dataframe. The calv
  #### Output: 
  - A dataframe with all columns and a subset of rows    
  
- ### TO DO:   
+ #### TO DO:   
  [ ] Add location subseting
 
 ## f.terminal
