@@ -1,4 +1,4 @@
-# random
+# Ci2D3 functions
 
 ## f.subset 
 This function queries a subset of the database and creates a dataframe. The calving year as well as the weeks since calving may be specified. Would like to add some more functionality. Should also try to get f.drift to use this function. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
@@ -10,7 +10,8 @@ This function queries a subset of the database and creates a dataframe. The calv
  #### Output: 
  - A dataframe with all columns and a subset of rows    
  
- [ ] TO DO: Add location subseting
+ ###TO DO:   
+ [ ] Add location subseting
 
 ## f.terminal
 Takes an object of class ‘igraph’ or of class ‘dataframe’ and finds its terminal ice islands. For the igraph class, a character list id returned of the terminal ice island instances. For the dataframe class, the dataframe is subset to only include the terminal instances. Does not use any other functions.  
