@@ -1,0 +1,30 @@
+################## Finds all terminal ice islands of dataframe or igraph ####################################################
+## Input: - object: object of class igraph or dataframe
+## Ouput: - For igraph: a character list of the terminal instances
+##        - For dataframe: a dataframe subsetted to the terminal instances
+#######################################################################################################################
+
+# From table or igraph
+f.terminal <- function(object) {
+  require(igraph)
+  
+  # For object of class dataframe
+    if (class(object) == "data.frame") {
+      term <- subset(table, !(table$inst %in% table$motherinst))
+    } 
+  
+  # For object of class igraph  
+    else if (class(object) == "igraph") {
+      # Finds outgoing vertices
+      term <- as.data.frame(names(which(sapply(sapply(V(g), function(x) neighbors(g,x,mode='out')), length) == 0)))
+      term <- levels(term[,1])
+      # Removes undescribed mothers (Original instances and mothers of orphans)
+      term <- subset(term, !(term %in% grep("YYYYMMDD_HHMMSS_SN_#_|_P\\d|_S\\d", term, value = TRUE)))
+    }
+  
+  # Error when neither dataframe or igraph
+    else {stop("Object is not of class 'igraph' or 'data.frame'")}
+  
+  return(term)
+}
+
