@@ -1,6 +1,6 @@
 # random
 
-f.subset
+f.subset /n
 This function queries a subset of the database and creates a dataframe. The calving year as well as the weeks since calving may be specified. Would like to add some more functionality. Should also try to get f.drift to use this function. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
 
 f.terminal
