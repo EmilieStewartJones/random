@@ -10,6 +10,7 @@ f.igraph_s <- function(df) {
   require(igraph)
   require(sp)
   require(rgeos)
+  require(plyr)
   source('f.Spatialdf.R')
   
   # Make spatial polygons dataframe 
