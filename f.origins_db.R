@@ -15,7 +15,7 @@ f.origins_db <- function(con, calvingyr = NULL, calvingloc = NULL) {
       sub_query <- f.subquery(calvingyr, calvingloc)
 
     # Prepare full query
-      query <- paste0("SELECT inst, motherinst FROM shapefiles_qc_2013 WHERE motherinst", 
+      query <- paste0("SELECT * FROM shapefiles_qc_2013 WHERE motherinst", 
                       " SIMILAR TO '%(P|S)(0|1|2)(0|1|2|3|4|5|6|7|8|9)' ",
                       sub_query,  
                       # " motherinst NOT LIKE 'YYYYMMDD!_HHMMSS!_SN!_#!____' ESCAPE '!'AND ",
