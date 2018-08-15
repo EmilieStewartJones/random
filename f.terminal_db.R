@@ -5,17 +5,23 @@
 ## Ouput: - A subsetted dataframe with only the terminal instances
 #######################################################################################################################
 
-f.terminal_db <- function(con, calvingyr = "2008", calvingloc = "PG") {
+f.terminal_db <- function(con, calvingyr = NULL, calvingloc = NULL) {
   require(RPostgreSQL)
+  source('f.subquery.R')
   
   # Prepare DB queries
-    sub_query <- paste0("calvingloc = '", calvingloc, "' AND calvingyr = '", calvingyr, "'")
-    query <- paste0("SELECT * FROM shapefiles_qc_2013 WHERE inst NOT IN ",
-                  "(SELECT inst FROM shapefiles_qc_2013 where inst IN (SELECT motherinst FROM shapefiles_qc_2013)) AND ",
-                  sub_query)
+    # Form subquery
+      sub_query <- f.subquery(calvingyr, calvingloc)
+      
+    # Main query  
+      query <- paste0("SELECT * FROM shapefiles_qc_2013 WHERE inst NOT IN ",
+                    "(SELECT inst FROM shapefiles_qc_2013 where inst IN (SELECT motherinst FROM shapefiles_qc_2013)) ",
+                     sub_query)
   
   # Query db and create character list
     term <- dbGetQuery(con, query)
   
   return(term)
 }
+
+
