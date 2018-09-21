@@ -22,6 +22,28 @@ This function queries a subset of the database and creates a dataframe. The calv
  - [ ] Would like to add some more functionality  
  - [ ] Try to get f.drift to use this function 
 
+## f.igraph
+Creates an igraph object from a table with at the least motherinst and inst columns. Any other columns will be included in the igraph object as attributes. How are these attributes accessed again? This function is not used by any other function at the moment as it has mostly been replaced by f.igraph_s. 
+
+## f.Spatialdf
+Creates a spatial polygons dataframe of the ice islands of a querried table from the database. The table must contain the geom1 column, which is the Well-known Text representation of the geometry of the ice islands. This column is created when f.subset is used to query the database. This function is used by f.igraph_s.
+#### Input: 
+- Dataframe with inst, motherinst and geom1 columns  
+#### Output: 
+- A SpatialPolygonsDataFrame of ice islands
+
+## f.igraph_s
+Same as f.igraph, but outputs an igraph object with spatially referenced centroids for all islands. It also creates a spatial polygons dataframe of the ice islands. However, this is simply outputted into the environment using <<- symbol. This should probably be changed. Could possibly just create a list of the igraph and df. This function is used by f.drift and f.plot. It uses f.Spatialdf to create the spatial polygons dataframe.
+
+#### Input: 
+- Dataframe queried from database with inst, motherinst and geom1 columns 
+#### Output:   
+- spatially referenced igraph object
+- Spatial polygons dataframe
+#### TO DO:   
+ - [ ] Find a way to return both the igraph and the spatial polygons dataframe
+ - [ ] Put spatial polygons dataframe into igraph object??
+
 ## f.terminal
 Takes an object of class ‘igraph’ or of class ‘dataframe’ and finds its terminal ice islands. For the igraph class, a character list id returned of the terminal ice island instances. For the dataframe class, the dataframe is subset to only include the terminal instances. Does not use any other functions.  
 
@@ -33,18 +55,22 @@ Takes an object of class ‘igraph’ or of class ‘dataframe’ and finds its 
 
 ## f.terminal_db
 Queries directly from the database and returns a dataframe of the terminal instances with their attributes. The function takes the calvingyr and calvingloc arguments to narrow the instances of interest. Is not currently used by any other function. But could possibly be used by branches_new.
-
-## f.igraph
-Creates an igraph object from a table with at the least motherinst and inst columns. Any other columns will be included in the igraph object as attributes. How are these attributes accessed again? This function is not used by any other function at the moment as it has mostly been replaced by f.igraph_s. 
-
-## f.Spatialdf
-Creates a spatial polygons dataframe of the ice islands of a querried table from the database. The table must contain the geom1 column, which is the Well-known Text representation of the geometry of the ice islands. This column is created when f.subset is used to query the database. This function is used by f.igraph_s.
-
-## f.igraph_s
-Same as f.igraph, but outputs an igraph object with spatially referenced centroids for all islands. It also creates a spatial polygons dataframe of the ice islands. However, this is simply outputted into the environment using <<- symbol. This should probably be changed. Could possibly just create a list of the igraph and df. This function is used by f.drift and f.plot. It uses f.Spatialdf to create the spatial polygons dataframe.
+#### Input: 
+- con: connection to database
+- calvingyr: year of orginal calvinf event. Default is "2008"
+- calvingloc: location of initial calving event default is "PG"
+#### Ouput: 
+- A subsetted dataframe with only the terminal instances
 
 ## f.coast
-This function brings in and prepares coastline data for plotting a map of ice islands. It can only be used with the gshhs_l_l1 table in the database. The map will be clipped if the map_extent argument is included. This function is used by f.plot and f.plot2 which both automatically create a map_extent argument based on the coordinates of the ice islands. 
+This function brings in and prepares coastline data for plotting a map of ice islands. It can be used with the gshhs_l_l1 and gshhs_f_l1_subset table in the database. The map will be clipped if the map_extent argument is included. This function is used by f.plot and f.plot2 which both automatically create a map_extent argument based on the coordinates of the ice islands.
+#### Input: 
+- con: connection to database
+- coastm: map to be used for coastline. Options are: 
+                        - fine: fine scaled map (gshhs_f_l1_subset)
+                        - low: low resolution map (gshhs_l_l1)
+#### Output: 
+- An object of class SpatialPolygons of the cropped coastal map
 
 ## f.plot
 This function plots the movement of ice islands from a table queried from the database. This table must contain the geom1, motherinst and inst columns. It uses the f.igraph_s and f.coast functions. Should add the possibility of a legend, graticules, scale and north arrow. 
