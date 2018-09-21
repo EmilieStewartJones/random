@@ -1,4 +1,4 @@
-##### Just after (inst) and before (motherinst) fracturing #####
+##### Just after fracturing #####
 
 f.fract_af <- function(con, calvingyr = NULL, calvingloc = NULL) {
   require(RPostgreSQL)
@@ -12,10 +12,9 @@ f.fract_af <- function(con, calvingyr = NULL, calvingloc = NULL) {
                   " DENSE_RANK() OVER(PARTITION BY calvingyr ORDER BY date_trunc('week', shapefiles_qc_2013.scenedate::timestamp))", 
                   " as wk_num FROM shapefiles_qc_2013",
                   " WHERE motherinst IN (SELECT motherinst FROM shapefiles_qc_2013 WHERE ",
-                  sub_query,
-                  " AND motherinst NOT LIKE 'YYYYMMDD!_HHMMSS!_SN!_#!____' ESCAPE '!'",
+                  " motherinst NOT LIKE 'YYYYMMDD!_HHMMSS!_SN!_#!____' ESCAPE '!'",
                   " AND motherinst NOT SIMILAR TO '%(P|S)(0|1|2)(0|1|2|3|4|5|6|7|8|9)'",
-                  " GROUP BY motherinst HAVING COUNT(*) > 1)")
+                  " GROUP BY motherinst HAVING COUNT(*) > 1)", sub_query)
   fract_af <- dbGetQuery(con, query)
   
   return(fract_af)
