@@ -5,8 +5,15 @@ This function queries a subset of the database and creates a dataframe. The calv
 
  #### Input:
  - calvingyr: the year of calving event. If none are specified, all will be used  
+ - calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
  - wk_num: - requires a vector of 2, where the 1st element is the earliest week and the 2nd is the latest week  
- - If nothing is given, all weeks will be taken     
+           - If nothing is given, all weeks will be taken 
+ - size: - requires a vector of 2, where the 1st element is the smallest area (Km2) and the 2nd is the latest area (km2)
+         - If nothing is given, all sizes will be taken 
+ - loc_x: - requires a vector of 2, where the 1st element is the min x coord (UTM) and the 2nd is the max x coord (UTM)
+          - If nothing is given, all islands will be taken 
+ - loc_y: - requires a vector of 2, where the 1st element is the min y coord (UTM) and the 2nd is the max y coord (UTM)
+          - If nothing is given, all islands will be taken 
  #### Output: 
  - A dataframe with all columns and a subset of rows    
  
