@@ -11,13 +11,14 @@ f.origins <- function(object) {
   
   # For object of class dataframe
     if (class(object) == "data.frame") {
-      orig <- subset(table, (is.na(table$motherinst) | (table$motherinst %in% grep("_P\\d|_S\\d", table$motherinst, value = TRUE))))
+      orig <- subset(object, (is.na(object$motherinst) | (object$motherinst %in% grep("_P\\d|_S\\d", object$motherinst, value = TRUE))| 
+                                (object$motherinst %in% grep("YYYYMMDD_HHMMSS_SN_#_...", object$motherinst, value = TRUE))))
     }
     
   # For object of class igraph
     else if (class(object) == "igraph") {
     # Make list of original instances
-      orig <- c(names(which(sapply(sapply(V(g), function(x) neighbors(g,x,mode='in')), length) == 0)))
+      orig <- c(names(which(sapply(sapply(V(object), function(x) neighbors(object,x,mode='in')), length) == 0)))
     # Removes undescribed mothers (Original instances and mothers of orphans).Do I keep this?
       orig <- subset(orig, !(orig %in% grep("YYYYMMDD_HHMMSS_SN_#_|_P\\d|_S\\d", orig, value = TRUE)))
   }
