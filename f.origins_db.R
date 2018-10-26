@@ -11,7 +11,7 @@ f.origins_db <- function(con, calvingyr = NULL, calvingloc = NULL, orphans = TRU
   
   # Prepare DB query
     # Form subquery
-      sub_query <- f.subquery(calvingyr, calvingloc)
+      sub_query <<- f.subquery(calvingyr, calvingloc)
      
     # Prepare full query  
     if (orphans == FALSE){
@@ -29,7 +29,7 @@ f.origins_db <- function(con, calvingyr = NULL, calvingloc = NULL, orphans = TRU
                       " DENSE_RANK() OVER(PARTITION BY calvingyr ORDER BY date_trunc('week', shapefiles_qc_2013.scenedate::timestamp))", 
                       " as wk_num FROM shapefiles_qc_2013",
                       " WHERE motherinst",  
-                      " SIMILAR TO '%(P|S)(0|1|2)(0|1|2|3|4|5|6|7|8|9)' ",
+                      " SIMILAR TO '%(P|S)(0|1|2)(0|1|2|3|4|5|6|7|8|9)' ", sub_query,
                       "OR motherinst LIKE 'YYYYMMDD!_HHMMSS!_SN!_#!____' ESCAPE '!'",
                       sub_query,  
                       " OR motherinst IS NULL ", sub_query)
