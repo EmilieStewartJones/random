@@ -60,8 +60,8 @@ This function brings in and prepares coastline data for plotting a map of ice is
 #### Input: 
 - con: connection to database
 - coastm: map to be used for coastline. Options are: 
-                        - fine: fine scaled map (gshhs_f_l1_subset)
-                        - low: low resolution map (gshhs_l_l1)
+                        * fine: fine scaled map (gshhs_f_l1_subset)
+                        * low: low resolution map (gshhs_l_l1)
 #### Output: 
 - An object of class SpatialPolygons of the cropped coastal map
 
