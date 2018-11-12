@@ -58,10 +58,10 @@ Queries directly from the database and returns a dataframe of the terminal insta
 ## f.coast
 This function brings in and prepares coastline data for plotting a map of ice islands. It can be used with the gshhs_l_l1 and gshhs_f_l1_subset table in the database. The map will be clipped if the map_extent argument is included. This function is used by f.plot and f.plot2 which both automatically create a map_extent argument based on the coordinates of the ice islands.
 #### Input: 
-- con: connection to database
-- coastm: map to be used for coastline. Options are: 
-* fine: fine scaled map (gshhs_f_l1_subset)
-* low: low resolution map (gshhs_l_l1)
+* con: connection to database
+* coastm: map to be used for coastline. Options are: 
+  * fine: fine scaled map (gshhs_f_l1_subset)
+  * low: low resolution map (gshhs_l_l1)
 #### Output: 
 - An object of class SpatialPolygons of the cropped coastal map
 
