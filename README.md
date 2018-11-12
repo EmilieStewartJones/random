@@ -1,25 +1,19 @@
 # Ci2D3 functions
 
 ## f.subset 
-This function queries a subset of the database and creates a dataframe. The calving year as well as the weeks since calving may be specified. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
+This function queries a subset of the database and creates a dataframe. Time, location and size of ice islands may be specified. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
 
  #### Input:
- - calvingyr: the year of calving event. If none are specified, all will be used  
+ - calvingyr: A single or multiple years during which the original calving event occured. If none are specified, all will be used  
  - calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
- - wk_num: - requires a vector of 2, where the 1st element is the earliest week and the 2nd is the latest week  
-           - If nothing is given, all weeks will be taken 
- - size: - requires a vector of 2, where the 1st element is the smallest area (Km2) and the 2nd is the latest area (km2)
-         - If nothing is given, all sizes will be taken 
- - loc_x: - requires a vector of 2, where the 1st element is the min x coord (UTM) and the 2nd is the max x coord (UTM)
-          - If nothing is given, all islands will be taken 
- - loc_y: - requires a vector of 2, where the 1st element is the min y coord (UTM) and the 2nd is the max y coord (UTM)
-          - If nothing is given, all islands will be taken 
+ - wk_num: Requires a vector of 2, where the 1st element is the earliest desired week number since original calving and the 2nd is the last. If nothing is given, all weeks will be taken 
+ - size: Requires a vector of 2, where the 1st element is the smallest area (Km2) and the 2nd is the latest area (km2). If nothing is given, all sizes will be taken 
+ - loc_x: Requires a vector of 2, where the 1st element is the min x coord (UTM) and the 2nd is the max x coord (UTM). If nothing is given, all islands will be taken 
+ - loc_y: Requires a vector of 2, where the 1st element is the min y coord (UTM) and the 2nd is the max y coord (UTM). If nothing is given, all islands will be taken 
  #### Output: 
  - A dataframe with all columns and a subset of rows    
  
  #### TO DO:   
- - [ ] Add location subseting
- - [ ] Would like to add some more functionality  
  - [ ] Try to get f.drift to use this function 
 
 ## f.igraph
