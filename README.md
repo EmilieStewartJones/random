@@ -1,20 +1,4 @@
 # Ci2D3 functions
-## f.terminal
-Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island.
-#### Input: 
-bject: Object of class 'dataframe' or 'igraph'
-#### Ouput: 
-* For igraph: a character list of the terminal ice islands
-* For dataframe: a dataframe subsetted to the terminal ice islands
-
-## f.terminal_db
-Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island.
-#### Input: 
-* con: Connection to database
-* calvingyr: A single or multiple years during which the terminals' lineage originated. If none are specified, all will be used
-* calvingloc: A single or multiple original locations of the terminals' lineage. If none are specified, all will be used
-#### Output:
-A dataframe subsetted to the terminal ice islands.
 
 ## f.origins
 Returns original ice islands, that is, ice island instances that calved directly off the ice sheet.
@@ -39,6 +23,22 @@ Returns original ice islands, that is, ice island instances that calved directly
 #### Output:
 A dataframe subsetted to the original ice islands.
 
+## f.terminal
+Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island.
+#### Input: 
+bject: Object of class 'dataframe' or 'igraph'
+#### Ouput: 
+* For igraph: a character list of the terminal ice islands
+* For dataframe: a dataframe subsetted to the terminal ice islands
+
+## f.terminal_db
+Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island. Queries directly from the database and returns a dataframe of the terminal instances with their attributes. The function uses the f.subquery function, allowing it to take the calvingyr and calvingloc arguments to narrow the instances of interest.
+#### Input: 
+* con: Connection to database
+* calvingyr: A single or multiple years during which the terminals' lineage originated. If none are specified, all will be used
+* calvingloc: A single or multiple original locations of the terminals' lineage. If none are specified, all will be used
+#### Output:
+A dataframe subsetted to the terminal ice islands.
 
 ## f.fract_bf/f.fract_af
 Finds ice island instances just before/after fracturing from table. Takes a dataframe queried from the database as input and outputs a subsetted dataframe.
@@ -80,7 +80,6 @@ Object of class igraph.
 
 ## f.subset 
 This function queries a subset of the database and creates a dataframe. Time, location and size of ice islands may be specified. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
-
  #### Input:
  - calvingyr: A single or multiple years during which the original calving event occured. If none are specified, all will be used  
  - calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
@@ -90,7 +89,6 @@ This function queries a subset of the database and creates a dataframe. Time, lo
  - loc_y: Requires a vector of 2, where the 1st element is the min y coord (UTM) and the 2nd is the max y coord (UTM). If nothing is given, all islands will be taken 
  #### Output: 
  - A dataframe with all columns and a subset of rows    
- 
  #### TO DO:   
  - [ ] Try to get f.drift to use this function 
 
@@ -106,7 +104,6 @@ Creates a spatial polygons dataframe of the ice islands of a querried table from
 
 ## f.igraph_s
 Same as f.igraph, but outputs an igraph object with spatially referenced centroids for all islands. It also creates a spatial polygons dataframe of the ice islands. However, this is simply outputted into the environment using <<- symbol. This should probably be changed. Could possibly just create a list of the igraph and df. This function is used by f.drift and f.plot. It uses f.Spatialdf to create the spatial polygons dataframe.
-
 #### Input: 
 - Dataframe queried from database with inst, motherinst and geom1 columns 
 #### Output:   
@@ -114,24 +111,6 @@ Same as f.igraph, but outputs an igraph object with spatially referenced centroi
 - It will also create a SpatialPolygonsDataframe object in the glocal environment under tha name df_sp.
 #### TO DO:   
  - [ ] Find a way to return both the igraph and the spatial polygons dataframe
-
-## f.terminal
-Takes an object of class ‘igraph’ or of class ‘dataframe’ and finds its terminal ice island. A terminal ice island is the last observation of an ice ice island. 
-
-#### Input:  
-- object: object of class igraph or dataframe
-#### Ouput:  
-- For igraph: a character list of the terminal instances  
-- For dataframe: a dataframe subsetted to the terminal instances
-
-## f.terminal_db
-Queries directly from the database and returns a dataframe of the terminal instances with their attributes. The function uses the f.subquery function, allowing it to take the calvingyr and calvingloc arguments to narrow the instances of interest.
-#### Input: 
-- con: connection to database
-- calvingyr: year of orginal calvinf event. If none is given, all years will be taken.
-- calvingloc: location of initial calving event. If none is given, all locations will be taken.
-#### Ouput: 
-- A subsetted dataframe with only the terminal ice islands
 
 ## f.coast
 This function brings in and prepares coastline data for plotting a map of ice islands. It can be used with the gshhs_l_l1 and gshhs_f_l1_subset table in the database. The map will be clipped if the map_extent argument is included. This function is used by f.plot and f.plot2 which both automatically create a map_extent argument based on the coordinates of the ice islands.
@@ -158,7 +137,6 @@ This function plots the movement of ice islands from a table queried from the da
   * object: a coastline map is provided 
 #### Output: 
 - A plot of ice islands and their edges with or without the coastline
-
 #### To do:
 [] Option to plot in grid or tree form
 [] Option to plot ice islands as polygons or points instead of an an igraph object
