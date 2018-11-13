@@ -1,6 +1,6 @@
 # Just after fracturing from dataframe #
 
-f.fract_af <- function(con, object) {
+f.fract_af <- function(object) {
   # From table
   # After fracture
   fract_af <- subset(object, object$motherinst %in% count(object$motherinst)$x[which(count(object$motherinst)$freq >= 2)] &
