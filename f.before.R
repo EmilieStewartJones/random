@@ -1,6 +1,6 @@
-#### To get all instances before an instance ##############################
+ng#### To get all instances before an instance ##############################
 ## Input: - g: object of class igraph 
-##        - inst: starting instance (vertex) 
+##        - inst: ending instance (vertex) 
 ## Output: Object of class igraph 
 ##########################################################################
 
