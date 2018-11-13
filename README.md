@@ -1,4 +1,65 @@
 # Ci2D3 functions
+## f.origins
+Returns original ice islands, that is, ice island instances that calved directly off the ice sheet.
+#### Input: 
+* object: Object of class 'dataframe' or 'igraph'
+* orphans (TRUE does not yet work with igraph objects): 
+  * TRUE: includes ice island instances that have no lineage (lineage is: YYYYMMDD_HHMMSS_SN_#_---)
+  * FALSE: Does not inlcude orphans
+#### Ouput: 
+* For igraph: a character list of the origins
+* For dataframe: a dataframe subsetted to the origins
+
+## f.origins_db
+Returns original ice islands, that is, ice island instances that calved directly off the ice sheet.
+#### Input: 
+* con: Connection to database
+* calvingyr: A single or multiple years during which the instance originated. If none are specified, all will be used
+* calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
+* orphans: 
+  * TRUE: includes ice island instances that have no lineage (lineage is: YYYYMMDD_HHMMSS_SN_#_---)
+  * FALSE: Does not inlcude orphans
+#### Output:
+A dataframe subsetted to the original ice islands.
+
+
+## f.fract_bf/f.fract_af
+Finds ice island instances just before/after fracturing from table. Takes a dataframe queried from the database as input and outputs a subsetted dataframe.
+
+## f.fract_bf_db/f.fract_af_db
+Finds ice island instances just before/after fracturing from database. 
+#### Input:
+* con: connection to database
+* calvingyr: A single or multiple years during which the original calving event occured. If none are specified, all will be used  
+* calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
+#### Output:
+* A dataframe from the database with a subset of rows and all columns.
+
+## f.fract
+Finds ice island instances just before and just after fracturing.
+#### Input:
+* con: connection to database
+* calvingyr: A single or multiple years during which the original calving event occured. If none are specified, all will be used  
+* calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
+* wk_num: Requires a vector of 2, where the 1st element is the earliest desired week number since original calving and the 2nd is the last
+#### Output:
+A dataframe queried from the database with the rows of ice islands instances just before and after fracturing and with all columns.
+
+## f.after
+Generates a branch of ice island observations following a given instance.
+#### Input:
+* g: object of class igraph
+* inst: starting instance (vertex)
+#### Output:
+Object of class igraph.
+
+## f.before
+Generates a branch of ice island observations that preceded a given instance.
+#### Input:
+* g: object of class igraph
+* inst: ending instance (vertex)
+#### Output:
+Object of class igraph.
 
 ## f.subset 
 This function queries a subset of the database and creates a dataframe. Time, location and size of ice islands may be specified. This function must be used when querying a table to be used in f.Spatialdf and by extension f.igraph_s because it creates the geom1 column.
