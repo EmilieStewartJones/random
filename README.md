@@ -1,4 +1,21 @@
 # Ci2D3 functions
+## f.terminal
+Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island.
+#### Input: 
+bject: Object of class 'dataframe' or 'igraph'
+#### Ouput: 
+* For igraph: a character list of the terminal ice islands
+* For dataframe: a dataframe subsetted to the terminal ice islands
+
+## f.terminal_db
+Returns terminal ice islands, that is, ice island instances that are not the lineage of any other ice island.
+#### Input: 
+* con: Connection to database
+* calvingyr: A single or multiple years during which the terminals' lineage originated. If none are specified, all will be used
+* calvingloc: A single or multiple original locations of the terminals' lineage. If none are specified, all will be used
+#### Output:
+A dataframe subsetted to the terminal ice islands.
+
 ## f.origins
 Returns original ice islands, that is, ice island instances that calved directly off the ice sheet.
 #### Input: 
@@ -15,7 +32,7 @@ Returns original ice islands, that is, ice island instances that calved directly
 #### Input: 
 * con: Connection to database
 * calvingyr: A single or multiple years during which the instance originated. If none are specified, all will be used
-* calvingloc: A single or multiple orginal calving locations. If none are specified, all will be used
+* calvingloc: A single or multiple original calving locations. If none are specified, all will be used
 * orphans: 
   * TRUE: includes ice island instances that have no lineage (lineage is: YYYYMMDD_HHMMSS_SN_#_---)
   * FALSE: Does not inlcude orphans
