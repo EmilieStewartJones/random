@@ -66,11 +66,37 @@ This function brings in and prepares coastline data for plotting a map of ice is
 - An object of class SpatialPolygons of the cropped coastal map
 
 ## f.plot
-This function plots the movement of ice islands from a table queried from the database. This table must contain the geom1, motherinst and inst columns. It uses the f.igraph_s and f.coast functions. Should add the possibility of a legend, graticules, scale and north arrow. 
+This function plots the movement of ice islands from a table queried from the database or an igraph object. It uses the f.igraph_s and f.coast functions. 
+#### Input: 
+* con: connection to database
+* object: options are:
+  * df: dataframe with at the least the inst, motherinst and geom1 columns
+  * g: A spatially referenced igraph object 
+* polygs: A spatial polygons dataframe that contains all the polygons of the igraph. Must be provided if object is of class igraph. It may contain other polygons too, but these will not appear in the plot.
+* coastline: 
+  * NULL: no coastline
+  * fine: fine scaled map (gshhs_f_l1_subset)
+  * low: low resolution map (gshhs_l_l1)
+  * object: a coastline map is provided 
+#### Output: 
+- A plot of ice islands and their edges with or without the coastline
+
+#### To do:
+[] Option to plot in grid or tree form
+[] Option to plot ice islands as polygons or points instead of an an igraph object
 
 ## f.plot2
-This function is the same as f.plot except that it takes a spatially referenced igraph object and a spatial polygons dataframe that contains all the polygons of the igraph object. The function uses the f.coast function. Should add the possibility of a legend, graticules, scale and north arrow.
+This function takes a spatially referenced igraph object and a spatial polygons dataframe that contains all the polygons of the igraph object. The function uses the f.coast function. Is not used anymore as f.plot can do what it does.
 
 ## f.drift
-This function isolates branches before and after fractures. It takes the calving location and year as input and outputs a list of two items: 1) a list of the lists of the inst of the ice islands of every drift branch and 2) a list of igraph objects of each drift branch. This function needs some improvements. Could possibly use f. subset and maybe other smaller functions to reduce its length.
+This function isolates branches of drifting ice islands before and after fractures, essentially repeat observations of the same ice island. 
+#### Input
+* Input: 
+  * calving location (PG, CG, NG, RG, SG)
+  * calving year (2008, 2010, 2011, 2012 and NA)
+  * week number
+#### Output: 
+A list with 2 items, a dataframe and an igraph object
+#### Notes
+This function needs some improvements. Could possibly use f. subset and maybe other smaller functions to reduce its length.
 
