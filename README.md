@@ -178,3 +178,7 @@ A list with 2 items, a dataframe and an igraph object
 #### Notes
 This function needs some improvements. Could possibly use f. subset and maybe other smaller functions to reduce its length.
 
+## f.subquery
+A function exclusively used in other functions that query from the database. Creates a 'subquery' that may be included in a database query 
+to specify calving year and calving location.
+
