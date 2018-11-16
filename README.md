@@ -96,9 +96,9 @@ This function queries a subset of the database and creates a dataframe. Time, lo
 Creates an igraph object from a table with at the least motherinst and inst columns. Any other columns will be included in the igraph object as attributes. This function is not used by any other function at the moment as it has mostly been replaced by f.igraph_s. 
 
 ## f.Spatialdf
-Creates a spatial polygons dataframe of the ice islands of a querried table from the database. The table must contain the geom1 column, which is the Well-known Text representation of the geometry of the ice islands. This column is created when f.subset is used to query the database. This function is used by f.igraph_s. 
+Creates an object of the class SpatialPolygonsDataframe of ice islands. An object of this class can be easily exported as a shapefile. This function is used by f.igraph_s. 
 #### Input: 
-- Dataframe with inst, motherinst and geom1 columns  
+- Dataframe with inst, motherinst and geom1 columns. The geom1 field is the Well-known Text representation of the geometry of the ice islands. This column is created when f.subset is used to query the database.  
 #### Output: 
 - A SpatialPolygonsDataFrame of ice islands. This object may be easily exported as a shapefile.
 
