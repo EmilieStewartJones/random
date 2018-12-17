@@ -3,7 +3,7 @@
 ## Output: - A SpatialPolygonsDataFrame of ice islands
 ###########################################################################################################
 
-f.spatial_pol <- function(df) {
+f.Spatialdf <- function(df) {
   # Add a column with an id number
     row.names(df) -> df$gid
 
