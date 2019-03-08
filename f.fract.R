@@ -1,15 +1,17 @@
-# Just before fracturing from dataframe #
+###################### Just before fracturing from dataframe ##################################
 
-f.fract_bf <- function(object, type="before") {
-  if (type = "before"){
+#=================================== Version 2.0 =============================================#
+
+f.fract <- function(object, type="before") {
+  if (type == "before"){
     # Before fracture
-    fract <- subset(object, object$inst %in% count(object$motherinst)$x[which(count(object$motherinst)$freq >= 2)])
+    fract <- subset(object, object$inst %in% count(object$lineage)$x[which(count(object$lineage)$freq >= 2)])
   }
-  if (type = "after"){
+  if (type == "after"){
     # After fracture
-    fract <- subset(object, object$motherinst %in% count(object$motherinst)$x[which(count(object$motherinst)$freq >= 2)] &
-                         !(object$motherinst %in% grep("_P\\d|_S\\d", object$motherinst, value = TRUE)) &
-                         !(object$motherinst %in% grep("YYYYMMDD_HHMMSS_SN_#_...", object$motherinst, value = TRUE)))
+    fract <- subset(object, object$lineage %in% count(object$lineage)$x[which(count(object$lineage)$freq >= 2)] &
+                         #!(object$lineage %in% grep("_P\\d|_S\\d", object$lineage, value = TRUE)) &
+                         !(object$lineage %in% grep("YYYYMMDD_HHMMSS_SN_#_...", object$lineage, value = TRUE)))
   }
   return(fract)
 }

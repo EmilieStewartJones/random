@@ -1,7 +1,10 @@
-####################### THE plotting function ################################
+####################### THE plotting function #################################################
+
+#=================================== Version 2.0 =============================================#
+
+##############################################################################################
 # Grid and tree require igraph and not igraph_s
 # Tree does not work
-# Could use igraph for everything and remove igraph_s
 
 f.plot_igraph <- function(g, type, coastline = NULL, col = "blue", size = 1, coords, title = ""){
   ############################ Functions ##############################
@@ -26,8 +29,8 @@ if (!is.null(coastline)){
   print("Preparing coastline data")
   
   # crop coastline map
-  map_extent <- c(min(coords@data$centroid_x) - 25000, max(coords@data$centroid_x) + 25000,
-                  min(coords@data$centroid_y) - 25000, max(coords@data$centroid_y) + 25000)
+  map_extent <- c(min(coords@data$lon) - 25000, max(coords@data$lon) + 25000,
+                  min(coords@data$lat) - 25000, max(coords@data$lat) + 25000)
   print("-----> Clipping coastline map to map extent")
   if (is.null(map_extent)) crop <- extent(0, 2000000, 2800000, 5000000)
   else crop <- extent(map_extent[1], map_extent[2], map_extent[3], map_extent[4])
@@ -39,18 +42,19 @@ if (!is.null(coastline)){
   if (type == "tree"){
     print("Plotting")
     plot(g, edge.arrow.size=0.3, vertex.frame.color = "white", 
-         vertex.color=rbPal(10)[as.numeric(cut(sqrt(V(g)$poly_area),breaks = 10))], 
+         vertex.color=rbPal(10)[as.numeric(cut(sqrt(V(g)$area),breaks = 10))], 
          vertex.size= degree(g)*2,
-         #vertex.color=rbPal(10)[as.numeric(cut(degree(g)*2,breaks = 10))], vertex.size= sqrt(V(g)$poly_area)*1.5, 
-         edge.curved = 0.1, vertex.label.cex = 1, vertex.label=NA, layout = layout_as_tree, main=title)
+         #vertex.color=rbPal(10)[as.numeric(cut(degree(g)*2,breaks = 10))], vertex.size= sqrt(V(g)$area)*1.5, 
+         edge.curved = 0.1, vertex.label.cex = 0.5, layout = layout_as_tree, main=title)
   }
   else if (type == "grid"){
     print("Plotting")
-    plot(g, layout_on_grid(g, width = 0, height = 0, dim = 2), edge.arrow.size=0.3, vertex.frame.color = "white", 
-         vertex.color=rbPal(10)[as.numeric(cut(sqrt(V(g)$poly_area),breaks = 10))], 
+    plot(g, layout_on_grid(g, width = 0, height = 0, dim = 2), edge.arrow.size=0.3,
+         vertex.frame.color = "white", 
+         vertex.color=rbPal(10)[as.numeric(cut(sqrt(V(g)$area),breaks = 10))], 
          vertex.size= degree(g)*2,
-         #vertex.color=rbPal(10)[as.numeric(cut(degree(g)*2,breaks = 10))], vertex.size= sqrt(V(g)$poly_area)*1.5, 
-         edge.curved = 0.1, vertex.label=NA, vertex.label.cex = 1, main = title)
+         #vertex.color=rbPal(10)[as.numeric(cut(degree(g)*2,breaks = 10))], vertex.size= sqrt(V(g)$area)*1.5, 
+         edge.curved = 0.1, vertex.label=NA, vertex.label.cex = 0.5, main = title)
   }
   else if (type == "spatial"){
     if (!is.null(coastline)){

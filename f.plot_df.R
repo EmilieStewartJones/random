@@ -1,4 +1,9 @@
-############################# Plotting of dataframe ###############################
+############################# Plotting of dataframe ##########################################
+
+#=================================== Version 2.0 =============================================#
+
+##############################################################################################
+
 f.plot_df <- function(object, coastline = NULL, title = "", col = "blue", legend=FALSE, title_leg = ""){
   par(mar=c(1,1,1.5,1))
   ############################ Functions ##############################
@@ -24,8 +29,8 @@ f.plot_df <- function(object, coastline = NULL, title = "", col = "blue", legend
     print("Preparing coastline data")
     
     # crop coastline map
-    map_extent <- c(min(object@data$centroid_x) - 25000, max(object@data$centroid_x) + 25000,
-                    min(object@data$centroid_y) - 25000, max(object@data$centroid_y) + 25000)
+    map_extent <- c(min(object@data$lon) - 25000, max(object@data$lon) + 25000,
+                    min(object@data$lat) - 25000, max(object@data$lat) + 25000)
     print("-----> Clipping coastline map to map extent")
     if (is.null(map_extent)) crop <- extent(0, 2000000, 2800000, 5000000)
     else crop <- extent(map_extent[1], map_extent[2], map_extent[3], map_extent[4])
