@@ -1,10 +1,14 @@
 #################### Script to isolate branches before and after fracture #####################
+
+#=================================== Version 2.0 =============================================#
+
+##############################################################################################
 #### Function f.drift:
 ####       - Input: calving location (PG, CG, NG, RG, SG)
 ####                calving year (2008, 2010, 2011, 2012 and NA)
 ####                week number
 ####       - Output: A list with 2 items, a dataframe and an igraph object
-###########################################################################
+##############################################################################################
 
 
 
@@ -43,14 +47,12 @@ f.drift <- function(con, calvingloc = NULL, calvingyr = NULL, wk_num = NULL) {
   
   ## Prepare DB queries ##
   sub_query <- f.subquery(calvingyr = calvingyr, calvingloc = calvingloc)
-    #sub_query <- paste0("calvingloc = '", calvingloc, "' AND calvingyr = '", calvingyr, "'")
-    #atr_query <- paste(attributes, collapse=", ")
-  
+
   ## Query main table and create igraph object ##
-    #query <- paste0("SELECT inst, motherinst, ", atr_query, " FROM shapefiles_qc_2013 WHERE ", sub_query)
-    query <- paste0("SELECT *, ST_AsText(shapefiles_qc_2013.wkb_geometry) as geom1, ",
-                    "DENSE_RANK() OVER(PARTITION BY calvingyr ORDER BY date_trunc('week', shapefiles_qc_2013.scenedate::timestamp)) ",
-                    "as wk_num FROM shapefiles_qc_2013 WHERE inst IS NOT NULL ", sub_query)
+    #query <- paste0("SELECT inst, lineage, ", atr_query, " FROM CI2D3 WHERE ", sub_query)
+    query <- paste0("SELECT *, ST_AsText(CI2D3.geometry) as geom1, ",
+                    "DENSE_RANK() OVER(PARTITION BY calvingyr ORDER BY date_trunc('week', CI2D3.scenedate::timestamp)) ",
+                    "as wk_num FROM CI2D3 WHERE inst IS NOT NULL ", sub_query)
     table <- dbGetQuery(con, query)
     # Subset weeks of interest from dataframe
     if (is.null(wk_num)){
@@ -63,18 +65,18 @@ f.drift <- function(con, calvingloc = NULL, calvingyr = NULL, wk_num = NULL) {
   
   ## Find all combinations ##
     # 1: Origins and just after fracturing
-      query <- paste0("SELECT inst FROM shapefiles_qc_2013 WHERE motherinst IN (SELECT motherinst FROM shapefiles_qc_2013",
+      query <- paste0("SELECT inst FROM CI2D3 WHERE lineage IN (SELECT lineage FROM CI2D3",
                       " WHERE inst IS NOT NULL ", sub_query, 
-                      " GROUP BY motherinst HAVING COUNT(*) > 1) OR inst IS NOT NULL ", sub_query, "AND motherinst IS NULL")
+                      " GROUP BY lineage HAVING COUNT(*) > 1) OR inst IS NOT NULL ", sub_query, "AND lineage IS NULL")
       fract1 <- dbGetQuery(con, query)
     # 2: Terminals and just before fracture 
-      query = paste0("SELECT inst FROM shapefiles_qc_2013 WHERE inst NOT IN (SELECT inst FROM shapefiles_qc_2013 where inst",
-                     " IN (SELECT motherinst FROM shapefiles_qc_2013))"
-                     , sub_query," OR inst IN (SELECT motherinst FROM shapefiles_qc_2013 WHERE inst IS NOT NULL ", sub_query, 
-                     " GROUP BY motherinst HAVING COUNT(*) > 1)")
+      query = paste0("SELECT inst FROM CI2D3 WHERE inst NOT IN (SELECT inst FROM CI2D3 where inst",
+                     " IN (SELECT lineage FROM CI2D3))"
+                     , sub_query," OR inst IN (SELECT lineage FROM CI2D3 WHERE inst IS NOT NULL ", sub_query, 
+                     " GROUP BY lineage HAVING COUNT(*) > 1)")
       fract2 = dbGetQuery(con, query)
     # all combinations between 1 and 2
-      comb <- expand.grid(fract1$inst, fract2$inst)
+      comb <<- expand.grid(fract1$inst, fract2$inst)
       
   ## Create lists and igraph objects ##
     drifts <- f.branch(comb, g)
