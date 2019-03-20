@@ -1,5 +1,4 @@
 ############ Names ice islands according to CIS system #################
-# There is currently a problem with it when used in dbCleaning. 
 
 f.NamingSystem <- function(table){
   
