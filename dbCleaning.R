@@ -1,6 +1,6 @@
 #### For cleaning up the database ##
 library(rgdal)
-# NOTE: Need 
+
 table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size = NULL,
                   loc_x = NULL, loc_y = NULL) 
 
@@ -205,25 +205,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
       # Need different way to do this that does not truncate the column names
       writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_public_01", driver="ESRI Shapefile")
 
-  ## database
-
   
 
   
   
-#### --------------------------------- OTHER ----------------------------------####
-## For calculating distance traveled to use to check grounding field
-# Get distance between points
-  # Igraph
-  DistGraph(g, v=V(g), w)
-  # Edges
-  test <- E(g)
-  edge_attr(g, index = E(g)) <- V(g)$centroid_x  
-  
-# Need to find a way to associate inst and motherinst, put coordinates in same row and compute distance 
-coordinates(table) <- ~centroid_x+centroid_y
-test <- SpatialPoints(table)
-test <- sp(table)
-
-
-# dbWriteTable(con, "ci2d3_v1_wirl", table)
