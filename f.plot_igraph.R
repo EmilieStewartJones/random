@@ -39,6 +39,8 @@ if (!is.null(coastline)){
 }
   
   ############################ Type ###################################  
+  rbPal <- colorRampPalette(c('red','blue')) # colour setup
+  
   if (type == "tree"){
     print("Plotting")
     plot(g, edge.arrow.size=0.3, vertex.frame.color = "white", 
