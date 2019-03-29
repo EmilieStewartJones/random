@@ -109,7 +109,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
   table_csv <- table
   table_csv$geometry <- NULL
   table_csv$geom1 <- NULL
-  write.csv(table_csv, file = "CI2D3_public_01.csv")
+  write.csv(table_csv, file = "CI2D3_1.1.csv")
   ## shapefile
   # Make a polygon shapefile of ice island
   table_shp <- f.Spatialdf(table)
@@ -118,7 +118,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
   table_shp$gid <- NULL
   # Make spatial points datframe into shapefile
   # Need different way to do this that does not truncate the column names
-  writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_public_01", driver="ESRI Shapefile")
+  writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_1.1.csv", driver="ESRI Shapefile")
   
  
 #### --------------------------------- PUBLIC VERSION (1.2) ----------------------------------####
@@ -194,7 +194,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
     table_csv <- table
     table_csv$geometry <- NULL
     table_csv$geom1 <- NULL
-    write.csv(table_csv, file = "CI2D3_public_02.csv")
+    write.csv(table_csv, file = "CI2D3_1.2.csv")
   ## shapefile
     # Make a polygon shapefile of ice island
       table_shp <- f.Spatialdf(table)
@@ -203,7 +203,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
       table_shp$gid <- NULL
     # Make spatial points datframe into shapefile
       # Need different way to do this that does not truncate the column names
-      writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_public_01", driver="ESRI Shapefile")
+      writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_1.2.csv", driver="ESRI Shapefile")
 
   
 
