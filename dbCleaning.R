@@ -4,7 +4,7 @@ library(rgdal)
 table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size = NULL,
                   loc_x = NULL, loc_y = NULL) 
 
-#### --------------------------------- WIRL VERSION----------------------------------####
+#### --------------------------------- WIRL VERSION (1.0)----------------------------------####
 ### Removing fields ##
   table <- table[, c("inst", "motherinst", "calvingyr","calvingloc", "poly_area", 
                      "perimeter", "length", "centroid_x", "centroid_y", 
@@ -49,7 +49,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
   
   
   
-  #### --------------------------------- PUBLIC VERSION 1 ----------------------------------####
+  #### --------------------------------- PUBLIC VERSION (1.1) ----------------------------------####
   ### Create a dataframe from entire db ###
   table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size = NULL,
                     loc_x = NULL, loc_y = NULL) 
@@ -121,7 +121,7 @@ table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size 
   writeOGR(table_shp, dsn = "Shapefile", layer = "CI2D3_public_01", driver="ESRI Shapefile")
   
  
-#### --------------------------------- PUBLIC VERSION 2 ----------------------------------####
+#### --------------------------------- PUBLIC VERSION (1.2) ----------------------------------####
 ### Create a dataframe from entire db ###
   table <- f.subset(con, calvingyr = NULL, calvingloc = NULL, wk_num = NULL, size = NULL,
                     loc_x = NULL, loc_y = NULL) 
